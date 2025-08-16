@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shubham G22 — Quiz & Videos</title>
+<meta name="description" content="Play fun quizzes and watch the latest videos from Shubham G22." />
+<style>
+  :root{
+    --brand:#ff4757;
+    --brand-2:#ff9068;
+    --ink:#222;
+    --muted:#555;
+    --bg:#f7f7f9;
+    --card:#ffffff;
+    --ok:#2e8b57;
+    --warn:#ffb703;
+    --shadow:0 10px 30px rgba(0,0,0,.10);
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans","Apple Color Emoji","Segoe UI Emoji";
+    color:var(--ink);
+    background:linear-gradient(135deg,#fff6f3,#fbe3da);
+  }
+
+  /* ========== NAVBAR (Sticky) ========== */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:linear-gradient(90deg,var(--brand),var(--brand-2));
+    color:#fff;
+    box-shadow:none;
+    transition:box-shadow .25s ease;
+  }
+  .nav.scrolled{ box-shadow:0 6px 20px rgba(0,0,0,.25); }
+  .nav-inner{
+    max-width:1100px; margin:auto; padding:14px 20px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{font-weight:800; font-size:28px; letter-spacing:.3px}
+  .menu{display:flex; gap:18px}
+  .menu a{
+    color:#fff; text-decoration:none; font-weight:600; opacity:.95;
+  }
+  .menu a:hover{opacity:1; text-decoration:underline}
+
+  /* ========== HERO ========== */
+  .hero{
+    max-width:1100px; margin:0 auto; padding:56px 20px 30px;
+    display:grid; grid-template-columns:1.1fr .9fr; gap:28px;
+    align-items:center;
+  }
+  .hero-card{
+    background:var(--card); border-radius:var(--radius); padding:28px;
+    box-shadow:var(--shadow); animation:floatUp .4s ease both;
+  }
+  .hero h1{margin:0 0 10px; font-size:40px}
+  .hero p{color:var(--muted); font-size:18px}
+  .cta-row{display:flex; gap:12px; margin-top:16px; flex-wrap:wrap}
+  .btn{
+    border:0; border-radius:12px; padding:12px 18px; cursor:pointer;
+    font-weight:700; transition:transform .15s ease, filter .15s ease;
+  }
+  .btn-primary{background:linear-gradient(90deg,var(--brand),var(--brand-2)); color:#fff}
+  .btn-ghost{background:#fff; color:var(--brand); border:2px solid #ffd8d8}
+  .btn:hover{transform:translateY(-2px); filter:brightness(1.03)}
+  .hero-visual{
+    height:260px; border-radius:var(--radius);
+    background:radial-gradient(120% 120% at 0% 0%,#ffe1dc 0,#fff 40%,#ffd1c9 100%);
+    box-shadow:var(--shadow); position:relative; overflow:hidden;
+  }
+  .bubble{
+    position:absolute; border-radius:50%; opacity:.5; filter:blur(1px);
+    animation:rise 6s infinite ease-in-out;
+  }
+  .b1{width:120px;height:120px;background:#ffd2cc;left:20px;bottom:-40px;animation-delay:.2s}
+  .b2{width:90px;height:90px;background:#ffc4bd;left:160px;bottom:-30px;animation-delay:.7s}
+  .b3{width:140px;height:140px;background:#ffb3a9;left:300px;bottom:-60px;animation-delay:1.2s}
+
+  /* ========== SECTIONS ========== */
+  section{padding:32px 20px}
+  .container{max-width:1100px;margin:auto}
+
+  /* ========== VIDEOS ========== */
+  .videos-grid{
+    display:grid; gap:18px;
+    grid-template-columns:repeat(3,1fr);
+  }
+  .videos-grid iframe{
+    width:100%; aspect-ratio:16/9; border:0; border-radius:14px; box-shadow:var(--shadow);
+    transition:transform .2s ease;
+  }
+  .videos-grid iframe:hover{transform:scale(1.02)}
+
+  .subscribe-wrap{
+    text-align:center; margin-top:12px;
+  }
+  .subscribe-btn{
+    display:inline-block; text-decoration:none; color:#fff; font-weight:800;
+    background:#ff0000; padding:12px 20px; border-radius:999px;
+    box-shadow:0 10px 25px rgba(255,0,0,.25); transition:transform .15s ease, filter .15s ease;
+  }
+  .subscribe-btn:hover{transform:translateY(-2px); filter:brightness(1.05)}
+
+  /* ========== QUIZ ========== */
+  .quiz-card{
+    background:var(--card); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow);
+  }
+  .quiz-head{
+    display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px;
+  }
+  .pill{
+    padding:6px 12px; border-radius:999px; background:#ffe8e6; color:#b03; font-weight:700; font-size:12px;
+  }
+  .q{
+    margin:14px 0 6px; font-weight:700;
+  }
+  .opt{display:block; margin-bottom:10px}
+  .opt input{margin-right:8px}
+  .actions{display:flex; gap:10px; margin-top:14px; flex-wrap:wrap}
+  .note{color:var(--muted); margin-top:8px}
+  .score{color:var(--ok); font-weight:800}
+  .hidden{display:none!important}
+
+  /* ========== FOOTER ========== */
+  footer{
+    margin-top:40px; background:#2c2c2c; color:#fff; text-align:center; padding:16px;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width:1000px){
+    .hero{grid-template-columns:1fr}
+    .hero-visual{height:180px}
+    .videos-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:640px){
+    .brand{font-size:22px}
+    .videos-grid{grid-template-columns:1fr}
+  }
+
+  /* ========== ANIMATIONS ========== */
+  @keyframes floatUp{from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:translateY(0)}}
+  @keyframes rise{from{transform:translateY(40px)} to{transform:translateY(-220px)}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="brand">Shubham G22</div>
+    <div class="menu">
+      <a href="#home">Home</a>
+      <a href="#quiz">Play Quiz</a>
+      <a href="#videos">Videos</a>
+      <a href="https://www.youtube.com/@ShubhamG22" target="_blank">YouTube</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="hero-card">
+    <h1>Welcome to Shubham G22 Quiz Hub 🎯</h1>
+    <p>Play fun quizzes, test your knowledge, and challenge your friends! Watch more on my
+      <a href="https://www.youtube.com/@ShubhamG22" target="_blank">YouTube Channel</a>.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#quiz">Start Quiz</a>
+      <a class="btn btn-ghost" href="#videos">Watch Videos</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="bubble b1"></div>
+    <div class="bubble b2"></div>
+    <div class="bubble b3"></div>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section id="videos">
+  <div class="container">
+    <h2>🎥 Latest Videos</h2>
+    <div class="videos-grid">
+      <iframe src="https://www.youtube.com/embed/H8H1aOENcNI" title="Video 1" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/25gFu3iB01M" title="Video 2" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/2ayTc7EgEn4" title="Video 3" allowfullscreen></iframe>
+    </div>
+    <div class="subscribe-wrap">
+      <a class="subscribe-btn" target="_blank" href="https://www.youtube.com/@ShubhamG22?sub_confirmation=1">🔔 Subscribe</a>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="container">
+    <h2>🧠 Play the Quiz</h2>
+
+    <div class="quiz-card" id="quizCard">
+      <div class="quiz-head">
+        <div class="pill" id="roundPill">Round 1 of 5</div>
+        <div class="pill" id="progressPill">0 / 3 answered</div>
+      </div>
+
+      <div id="quizContainer"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="submitBtn">Submit</button>
+        <button class="btn" id="nextBtn" style="display:none;">Next Quiz ➡</button>
+        <button class="btn" id="restartBtn" style="display:none;">🔄 Restart</button>
+      </div>
+
+      <div class="note" id="roundNote">Answer all 3 questions, then press Submit.</div>
+      <div class="score" id="result"></div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- FOOTER -->
+<footer>© 2025 Shubham G22. All rights reserved.</footer>
+
+
+<script>
+/* ========== Sticky nav shadow on scroll ========== */
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => {
+  if (window.scrollY > 10) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+/* ========== Quiz Data (bigger bank; no repeats) ========== */
+const QUESTION_BANK = [
+  {q:"Which country invented paper?", opts:["Egypt","China","India","Greece"], a:"China"},
+  {q:"Capital of Japan?", opts:["Tokyo","Beijing","Seoul","Kyoto"], a:"Tokyo"},
+  {q:"Red Planet?", opts:["Earth","Venus","Mars","Jupiter"], a:"Mars"},
+  {q:"Who invented the light bulb?", opts:["Edison","Newton","Tesla","Einstein"], a:"Edison"},
+  {q:"Largest ocean?", opts:["Atlantic","Indian","Pacific","Arctic"], a:"Pacific"},
+  {q:"H2O is…", opts:["Water","Oxygen","Hydrogen","Salt"], a:"Water"},
+  {q:"Eiffel Tower is in…", opts:["Italy","France","Spain","Germany"], a:"France"},
+  {q:"Who wrote Hamlet?", opts:["Shakespeare","Tolstoy","Dickens","Homer"], a:"Shakespeare"},
+  {q:"Largest mammal?", opts:["Elephant","Blue Whale","Shark","Giraffe"], a:"Blue Whale"},
+  {q:"Plants produce which gas?", opts:["Oxygen","Carbon Dioxide","Nitrogen","Methane"], a:"Oxygen"},
+  {q:"Mona Lisa painter?", opts:["Da Vinci","Picasso","Van Gogh","Rembrandt"], a:"Da Vinci"},
+  {q:"Tallest mountain?", opts:["Everest","K2","Kangchenjunga","Makalu"], a:"Everest"},
+  {q:"Closest planet to Sun?", opts:["Mercury","Venus","Earth","Mars"], a:"Mercury"},
+  {q:"Currency of Japan?", opts:["Yuan","Won","Yen","Ringgit"], a:"Yen"},
+  {q:"Symbol for Gold?", opts:["Ag","Au","Gd","Go"], a:"Au"},
+  {q:"Telephone inventor?", opts:["Edison","Bell","Tesla","Curie"], a:"Bell"},
+  {q:"Smallest prime?", opts:["0","1","2","3"], a:"2"},
+  {q:"How many continents?", opts:["5","6","7","8"], a:"7"},
+  {q:"Fastest land animal?", opts:["Cheetah","Leopard","Horse","Tiger"], a:"Cheetah"},
+  {q:"Land of the Rising Sun?", opts:["China","Japan","Thailand","India"], a:"Japan"},
+  {q:"Gas we breathe in mostly?", opts:["Oxygen","Nitrogen","CO₂","Hydrogen"], a:"Nitrogen"},
+  {q:"First man on the moon?", opts:["Yuri Gagarin","Neil Armstrong","Buzz Aldrin","Collins"], a:"Neil Armstrong"},
+  {q:"Largest desert?", opts:["Sahara","Gobi","Arctic","Kalahari"], a:"Sahara"},
+  {q:"Square root of 81?", opts:["7","8","9","10"], a:"9"},
+  {q:"HTML stands for?", opts:["Hyperlinks and Text Markup","Hyper Text Markup Language","Home Tool Markup Language","Hyper Tool"], a:"Hyper Text Markup Language"}
+];
+
+/* ========== Config ========== */
+const ROUNDS_TOTAL = 5;
+const QUESTIONS_PER_ROUND = 3;
+
+/* ========== State ========== */
+let deck = [];        // shuffled copy of question bank
+let roundIndex = 0;   // 0..4
+let totalScore = 0;
+
+/* ========== DOM refs ========== */
+const quizContainer = document.getElementById('quizContainer');
+const submitBtn = document.getElementById('submitBtn');
+const nextBtn = document.getElementById('nextBtn');
+const restartBtn = document.getElementById('restartBtn');
+const resultDisplay = document.getElementById('result');
+const roundNote = document.getElementById('roundNote');
+const roundPill = document.getElementById('roundPill');
+const progressPill = document.getElementById('progressPill');
+
+/* ========== Utils ========== */
+function shuffle(arr){
+  // Fisher–Yates
+  for (let i=arr.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]] = [arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function sliceRoundQuestions(){
+  const start = roundIndex * QUESTIONS_PER_ROUND;
+  return deck.slice(start, start + QUESTIONS_PER_ROUND);
+}
+
+/* ========== Render ========== */
+function renderRound(){
+  const set = sliceRoundQuestions();
+  quizContainer.innerHTML = '';
+  resultDisplay.textContent = '';
+  submitBtn.style.display = 'inline-block';
+  nextBtn.style.display = 'none';
+
+  roundPill.textContent = `Round ${roundIndex+1} of ${ROUNDS_TOTAL}`;
+  progressPill.textContent = `0 / ${QUESTIONS_PER_ROUND} answered`;
+
+  set.forEach((item, i) => {
+    const card = document.createElement('div');
+    card.className = 'qblock';
+    card.innerHTML = `
+      <div class="q">${i+1}. ${item.q}</div>
+      ${shuffle([...item.opts]).map(opt=>`
+        <label class="opt">
+          <input type="radio" name="q${i}" value="${opt}">
+          ${opt}
+        </label>
+      `).join('')}
+    `;
+    quizContainer.appendChild(card);
+  });
+
+  // track progress
+  quizContainer.querySelectorAll('input[type="radio"]').forEach(r=>{
+    r.addEventListener('change', ()=>{
+      const answered = new Set(
+        [...quizContainer.querySelectorAll('input[type="radio"]:checked')]
+          .map(el=>el.name)
+      ).size;
+      progressPill.textContent = `${answered} / ${QUESTIONS_PER_ROUND} answered`;
+    });
+  });
+}
+
+/* ========== Submit Handler ========== */
+submitBtn.addEventListener('click', ()=>{
+  const set = sliceRoundQuestions();
+  let roundScore = 0;
+
+  for (let i=0;i<QUESTIONS_PER_ROUND;i++){
+    const picked = document.querySelector(`input[name="q${i}"]:checked`);
+    if (picked && picked.value === set[i].a) roundScore++;
+  }
+  totalScore += roundScore;
+
+  // show round result
+  resultDisplay.innerHTML = `✅ Round ${roundIndex+1}: You scored <strong>${roundScore}</strong> / ${QUESTIONS_PER_ROUND}.`;
+  submitBtn.style.display = 'none';
+
+  if (roundIndex < ROUNDS_TOTAL - 1){
+    nextBtn.style.display = 'inline-block';
+    roundNote.textContent = 'Click "Next Quiz" for a new set of questions.';
+  } else {
+    // Final congrats
+    quizContainer.innerHTML = '';
+    roundNote.textContent = '';
+    resultDisplay.innerHTML = `🏆 <strong>Congrats!</strong> You completed all ${ROUNDS_TOTAL} rounds.<br>
+      Total Score: <strong>${totalScore}</strong> / ${ROUNDS_TOTAL * QUESTIONS_PER_ROUND}`;
+    restartBtn.style.display = 'inline-block';
+    nextBtn.style.display = 'none';
+  }
+});
+
+/* ========== Next Round ========== */
+nextBtn.addEventListener('click', ()=>{
+  roundIndex++;
+  renderRound();
+  roundNote.textContent = 'Answer all 3 questions, then press Submit.';
+});
+
+/* ========== Restart ========== */
+restartBtn.addEventListener('click', ()=>{
+  startQuizFlow();
+});
+
+/* ========== Start / Reset ========== */
+function startQuizFlow(){
+  // prepare a fresh shuffled deck and take only what we need
+  deck = shuffle([...QUESTION_BANK]);
+  // ensure enough questions exist
+  const needed = ROUNDS_TOTAL * QUESTIONS_PER_ROUND;
+  if (deck.length < needed){
+    alert(`Not enough questions in the bank (${deck.length}) for ${needed} required.`);
+    return;
+  }
+  deck = deck.slice(0, needed); // no repeats across 5 rounds
+  roundIndex = 0;
+  totalScore = 0;
+  restartBtn.style.display = 'none';
+  renderRound();
+}
+
+
+startQuizFlow();
+</script>
+</body>
+</html>
+
